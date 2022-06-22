@@ -159,5 +159,5 @@ V[1, 1] = 1
 V[2, 2] = 1
 
 
-REuler = Euler(100,3,R,V)
-np.savetxt("MetodoEuler.cvs ",REuler ,delimiter=",")
+RFinal = RK4(100,3,R,V)
+np.savetxt("SolGeneral.cvs ",RFinal ,delimiter=",")
