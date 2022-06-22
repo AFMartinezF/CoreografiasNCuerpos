@@ -19,8 +19,6 @@ def actualizar(i):
     ax.plot(r1_x [:i], r1_y[:i])
     ax.plot(r2_x [:i], r2_y[:i])
     ax.plot(r3_x [:i], r3_y[:i])
-    plt.xlim(min(r3_x),max(r3_x))
-    plt.ylim(min(r3_y),max(r3_y))
-
-anim= animation.FuncAnimation(fig,actualizar,range(len(r1_x)))
-anim.save('df.gif')
+   
+anim= animation.FuncAnimation(fig,actualizar,range(len(r1_x)), repeat = True)
+anim.save('Grafica.gif')
