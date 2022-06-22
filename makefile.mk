@@ -1,8 +1,8 @@
-#make -f Makefile_MartinezAngel_S7C2_EDO2.mk
-all :: Resultados.png
+#make -f makefile.mk
+all :: df.gif
 
-Resultados.png :: Archivo.py Resultados.csv
-					python Archivo.py
+df.gif :: Grafica.py Resultados.csv
+					python Grafica.py
 
 Resultados.csv :: SimulacionMetodoEuler.exe
 					./SimulacionMetodoEuler.exe

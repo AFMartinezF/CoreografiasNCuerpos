@@ -11,7 +11,7 @@ double dy_euler(double v);
 void escribir(int i, double r1[][2], double r2[][2], double r3[][2]);
 
 int main() {
-  double G = 1.2; //Constante de gravitación universal
+  double G = 6.67384; //Constante de gravitación universal
   int dim = 2;    //Grados de libertad
   int n = 100;
   double t_0 = 0;
