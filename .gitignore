@@ -1,5 +1,5 @@
 *.pdf
 *.docx
-Resultados.csv
-df.gif
+*.csv
+*.gif
 SimulacionMetodoEuler.exe

@@ -1,26 +1,26 @@
-import numpy as np 
+import numpy as np
 
 
 # funciones EDO segundo orden en poscion de cada masa
 
-def DV(n,M,R): # posicion de un cuerpo respecto a otro 
+def DV(n,M,R): # posicion de un cuerpo respecto a otro
 
-    DV = np.zeros((n, 3)) # dv(numero de masas, cordenadas xyz) 
+    DV = np.zeros((n, 3)) # dv(numero de masas, cordenadas xyz)
     G = 1
 
     for i in range (n):
         for j in range (n):
             if i != j:
                 rij = R[j] - R[i] #posicion de un cuerpo respecto a otro
-                DV[i] += G *( M[j] * rij / np.linalg.norm(rij)**3 ) 
-    
+                DV[i] += G *( M[j] * rij / np.linalg.norm(rij)**3 )
+
     return DV
 
 
 
 
 #metodo de euler
- 
+
 def Euler(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
 
     dt = tFinal / NPasos
@@ -29,14 +29,14 @@ def Euler(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
     VNew = V
 
     for i in range(NPasos):
-        RNew[i+1] = RNew[i] + VNew * dt 
-        VNew = VNew + DV(n, M, RNew[i]) * dt 
+        RNew[i+1] = RNew[i] + VNew * dt
+        VNew = VNew + DV(n, M, RNew[i]) * dt
 
     #RNew[:, 0, : ]) #posiciones xyz cuerpo 1
     #RNew[:, 1, : ]) #posiciones xyz  cuerpo 2
     #RNew[:, 2, : ]) #posiciones xyz  cuerpo 3
 
-    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente 
+    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente
     RSol = RNew[:, 0, : ]
     for i in range(1,n):
         RSol = np.concatenate((RSol, RNew[:, i, : ]), axis=1)
@@ -54,26 +54,26 @@ def RK4(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
     RNew = np.zeros((NPasos+1, n, 3)) # RNew (tienpo ,numero de masas, cordenadas xyz) nueva posicion de cada cuerpo
     RNew[0] = R
     VNew = V
-   
+
     for i in range(NPasos):
-        
-        k1= VNew 
-        k1v = DV(n, M, RNew[i]) 
+
+        k1= VNew
+        k1v = DV(n, M, RNew[i])
         k2= VNew + k1v * dt /2
         k2v = DV(n, M, RNew[i]+ k1 * dt/2)
         k3 = VNew  + k2v * dt /2
         k3v = DV(n, M, RNew[i]+ k2 * dt/2)
-        k4 = VNew + k3v * dt 
+        k4 = VNew + k3v * dt
         k4v = DV(n, M, RNew[i]+ k3 *dt)
 
         RNew[i+1] = RNew[i] + (k1 + 2*k2 + 2*k3 + k4) * dt / 6
         VNew =  VNew + (k1v + 2*k2v + 2*k3v + k4v) * dt / 6
-    
+
     #RNew[:, 0, : ]) #posiciones xyz cuerpo 1
     #RNew[:, 1, : ]) #posiciones xyz  cuerpo 2
     #RNew[:, 2, : ]) #posiciones xyz  cuerpo 3
 
-    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente 
+    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente
     RSol = RNew[:, 0, : ]
     for i in range(1,n):
         RSol = np.concatenate((RSol, RNew[:, i, : ]), axis=1)
@@ -94,8 +94,8 @@ def LF(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
     VOld = V + dt/2 * DV(n, M, R) # este es V n-1/2
 
     for i in range(NPasos):
-        
-        VNew =  VOld +  dt * DV(n, M, RNew[i]) 
+
+        VNew =  VOld +  dt * DV(n, M, RNew[i])
         RNew[i+1] = RNew[i] +  dt * VOld
         VOld = VNew
 
@@ -103,7 +103,7 @@ def LF(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
     #RNew[:, 1, : ]) #posiciones xyz  cuerpo 2
     #RNew[:, 2, : ]) #posiciones xyz  cuerpo 3
 
-    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente 
+    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente
     RSol = RNew[:, 0, : ]
     for i in range(1,n):
         RSol = np.concatenate((RSol, RNew[:, i, : ]), axis=1)
@@ -123,15 +123,15 @@ def Verlet(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
     ROld = R - V * dt  # este es R n-1
 
     for i in range(NPasos):
-        
-        RNew[i+1] = 2 * RNew[i] - ROld + dt**2 * DV(n, M, RNew[i]) 
+
+        RNew[i+1] = 2 * RNew[i] - ROld + dt**2 * DV(n, M, RNew[i])
         ROld = RNew[i]
-    
+
     #RNew[:, 0, : ]) #posiciones xyz cuerpo 1
     #RNew[:, 1, : ]) #posiciones xyz  cuerpo 2
     #RNew[:, 2, : ]) #posiciones xyz  cuerpo 3
 
-    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente 
+    #Rsol organiza los datos de los pociones xyz para cada masa horizontalmente
     RSol = RNew[:, 0, : ]
     for i in range(1,n):
         RSol = np.concatenate((RSol, RNew[:, i, : ]), axis=1)
@@ -144,7 +144,7 @@ def Verlet(NPasos, tFinal, R, V): # posicion de un cuerpo respecto  matriz 3d
 
 
 
-# condiciones iniciales 
+# condiciones iniciales
 
 n = 3 # numero de masas (numero entero)
 M = [1,1,1] # masa de cada cuerpo
@@ -157,11 +157,11 @@ V = np.zeros((n, 3)) #velocidad de cada cuerpo (xyz en la horizontal)
 #V[0, 0] = 1
 V[0, 0] = -0.347902
 V[1, 0] = -0.347902
-V[2, 0] =  0.695804 
+V[2, 0] =  0.695804
 V[0, 1] = -0.533930
 V[1, 1] = -0.533930
 V[2, 1] =  1.067860
 
 
 RFinal = RK4(1000,6,R,V)
-np.savetxt("SolGeneral.cvs ",RFinal ,delimiter=",")
+np.savetxt("SolGeneral.csv ",RFinal ,delimiter=",")

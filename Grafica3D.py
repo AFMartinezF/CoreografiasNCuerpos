@@ -28,4 +28,4 @@ def actualizar(i):
 
 
 anim= animation.FuncAnimation(fig,actualizar,range(len(r1_x)), repeat = True)
-anim.save('Tre.gif')
+anim.save('Grafica3D.gif')

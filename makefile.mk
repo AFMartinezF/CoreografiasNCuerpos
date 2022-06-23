@@ -1,11 +1,9 @@
 #make -f makefile.mk
-all :: df.gif
 
-df.gif :: Grafica.py Resultados.csv
-					python Grafica.py
+all :: Grafica3D.gif
 
-Resultados.csv :: SimulacionMetodoEuler.exe
-					./SimulacionMetodoEuler.exe
+Grafica3D.gif :: Grafica3D.py SolGeneral.csv
+										python Grafica3D.py
 
-SimulacionMetodoEuler.exe :: SimulacionMetodoEuler.cpp
-					g++ SimulacionMetodoEuler.cpp -o SimulacionMetodoEuler.exe
+SolGeneral.csv :: SolGeneral.py
+										python SolGeneral.py

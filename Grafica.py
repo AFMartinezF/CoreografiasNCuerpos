@@ -19,6 +19,6 @@ def actualizar(i):
     ax.plot(r1_x [:i], r1_y[:i])
     ax.plot(r2_x [:i], r2_y[:i])
     ax.plot(r3_x [:i], r3_y[:i])
-   
+
 anim= animation.FuncAnimation(fig,actualizar,range(len(r1_x)), repeat = True)
 anim.save('Grafica.gif')
