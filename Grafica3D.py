@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 import matplotlib.animation as animation
 
-data = np.genfromtxt("SolGeneral.cvs ",delimiter=",")
+data = np.genfromtxt("SolGeneral.csv ",delimiter=",")
 
 r1_x  = data[:,0]
 r1_y  = data[:,1]
