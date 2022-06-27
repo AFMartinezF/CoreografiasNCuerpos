@@ -19,12 +19,12 @@ int main() {
   double dt = t_final/n;
   int i = 0;
   //Condiciones inciales del problema (posición, velocidad)
-  double r1 [n][2] = {{1,0}};
-  double r2 [n][2] = {{-1,0}};
-  double r3 [n][2] = {{0,5}};
-  double v1 [n][2] = {{0,0}};
-  double v2 [n][2] = {{0,0}};
-  double v3 [n][2] = {{0,0}};
+  double r1 [n][2] = {{-1,0}};
+  double r2 [n][2] = {{1,0}};
+  double r3 [n][2] = {{0,0}};
+  double v1 [n][2] = {{-0.3,-0.5}};
+  double v2 [n][2] = {{-0.3,-0.5}};
+  double v3 [n][2] = {{0.7,1.1}};
   double m [3] = {10000,10000,0.0001}; //Masas de los cuerpos
 
   double d12;  double d13;  double d23; //Variables para almacenar las distancias entre los cuerpos
